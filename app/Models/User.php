@@ -40,4 +40,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get all of the posts for the user.
+     */
+    public function posts()
+    {
+        return $this->hasManyThrough(Post::class, Category::class);
+
+        // return $this->hasManyThrough(
+        //     Post::class,
+        //     Category::class,
+        //     'user_id', // Foreign key on the categories table...
+        //     'category_id', // Foreign key on the posts table...
+        //     'id', // Local key on the users table...
+        //     'id' // Local key on the categories table...
+        // );
+    }
 }
